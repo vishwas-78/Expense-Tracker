@@ -1,10 +1,11 @@
-# [Project name]
+# Expense Tracker
 
-_Replace the heading above with the project's name, and this line with one sentence describing what this app does for users._
+Personal finance web app for recording expenses and understanding monthly spending.
 
 ## Run & Operate
 
-- `pnpm --filter @workspace/api-server run dev` — run the API server (port 5000)
+- `pnpm --filter @workspace/expense-tracker run dev` — run the Vite frontend and Python API
+- `uv run --project . --directory artifacts/expense-tracker python -m backend.init_db` — initialize the development database schema once
 - `pnpm run typecheck` — full typecheck across all packages
 - `pnpm run build` — typecheck + build all packages
 - `pnpm --filter @workspace/api-spec run codegen` — regenerate API hooks and Zod schemas from the OpenAPI spec
@@ -14,23 +15,29 @@ _Replace the heading above with the project's name, and this line with one sente
 ## Stack
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
-- API: Express 5
-- DB: PostgreSQL + Drizzle ORM
+- API: FastAPI + SQLModel (Python 3.11)
+- DB: PostgreSQL + SQLModel
+- Frontend: React + Vite + Tailwind
 - Validation: Zod (`zod/v4`), `drizzle-zod`
 - API codegen: Orval (from OpenAPI spec)
-- Build: esbuild (CJS bundle)
+- Build: Vite bundle served by FastAPI
 
 ## Where things live
 
-_Populate as you build — short repo map plus pointers to the source-of-truth file for DB schema, API contracts, theme files, etc._
+- `artifacts/expense-tracker/backend/` — Python API, SQLModel model, and development schema setup
+- `artifacts/expense-tracker/src/` — React app and theme
+- `lib/api-spec/openapi.yaml` — API contract; generated client hooks call `/_api`
+- `lib/api-client-react/src/generated/` — generated frontend API hooks
 
 ## Architecture decisions
 
-_Populate as you build — non-obvious choices a reader couldn't infer from the code (3-5 bullets)._
+- Python serves both the production frontend bundle and API; development runs the API beside Vite.
+- The app starts with an empty ledger instead of fabricated financial history.
 
 ## Product
 
-_Describe the high-level user-facing capabilities of this app once they exist._
+- Create, edit, search, filter, and delete expenses.
+- Review monthly totals, daily spending, category totals, and transaction history.
 
 ## User preferences
 

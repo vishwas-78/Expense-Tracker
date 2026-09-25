@@ -1,0 +1,1 @@
+- [SQLModel query results](sqlmodel-query-results.md) — use explicit scalar APIs when a query should yield ORM objects or one aggregate value.
