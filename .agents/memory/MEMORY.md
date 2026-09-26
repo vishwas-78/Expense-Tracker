@@ -1,1 +1,2 @@
 - [SQLModel query results](sqlmodel-query-results.md) — use explicit scalar APIs when a query should yield ORM objects or one aggregate value.
+- [FinTrack integrations](fintrack-integrations.md) — keep AI/payment providers server-side and explicit when workspace connections are unavailable.

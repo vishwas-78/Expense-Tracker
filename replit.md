@@ -1,6 +1,6 @@
-# Expense Tracker
+# FinTrack
 
-Personal finance web app for recording expenses and understanding monthly spending.
+INR-native personal finance web app for Indian users to track money in, money out, and recurring commitments.
 
 ## Run & Operate
 
@@ -16,7 +16,7 @@ Personal finance web app for recording expenses and understanding monthly spendi
 
 - pnpm workspaces, Node.js 24, TypeScript 5.9
 - API: FastAPI + SQLModel (Python 3.11)
-- DB: PostgreSQL + SQLModel
+- DB: PostgreSQL + SQLModel with account-scoped records
 - Frontend: React + Vite + Tailwind
 - Validation: Zod (`zod/v4`), `drizzle-zod`
 - API codegen: Orval (from OpenAPI spec)
@@ -32,12 +32,17 @@ Personal finance web app for recording expenses and understanding monthly spendi
 ## Architecture decisions
 
 - Python serves both the production frontend bundle and API; development runs the API beside Vite.
-- The app starts with an empty ledger instead of fabricated financial history.
+- New accounts start with an empty ledger instead of fabricated financial history.
+- Auth uses a signed, HttpOnly session cookie backed by `SESSION_SECRET`; all new records are scoped to the signed-in user.
+- The advisor is deterministic and local: it reads only the signed-in user's ledger, compares monthly habits, checks budgets/subscriptions, and never calls an external LLM.
 
 ## Product
 
-- Create, edit, search, filter, and delete expenses.
-- Review monthly totals, daily spending, category totals, and transaction history.
+- Sign up and sign in with a fresh-vs-returning account state.
+- Create, edit, search, filter, and delete expense and income records.
+- Review INR-native net savings, spend, income, daily average, category breakdown, and monthly budgets.
+- Track subscriptions, split bills, and export the ledger to CSV or PDF.
+- Ask the AI advisor questions when a Gemini key is configured.
 
 ## User preferences
 
